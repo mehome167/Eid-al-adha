@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>عید الضحیٰ مبارک</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      background: linear-gradient(to bottom, #fff8dc, #c8e6c9);
+      text-align: center;
+      direction: rtl;
+      overflow-x: hidden; /* Horizontal scrolling prevents */
+    }
+
+    .container {
+      position: relative;
+      max-width: 500px; /* Limits width on larger screens */
+      margin: 2rem auto; /* Centers container and adds space */
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #388e3c;
+      margin-bottom: 1rem;
+      animation: pulse 2s infinite;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      color: #6d4c41;
+      margin-bottom: 1.5rem;
+    }
+
+    input, button {
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      width: 80%; /* Takes 80% of parent width */
+      border-radius: 10px;
+      border: 1px solid #aaa;
+      text-align: center;
+      margin-top: 0.8rem;
+      box-sizing: border-box; /* Include padding and border in element's total width and height */
+    }
+
+    button {
+      background-color: #2e7d32;
+      color: white;
+      cursor: pointer;
+      width: 80%; /* Ensure button width is consistent */
+    }
+    
+    button:hover {
+        opacity: 0.9;
+    }
+
+    .gif-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      margin-bottom: 1.5rem; /* Add some space below the GIF */
+    }
+
+    .gif {
+      width: 100%; /* Image takes full width of wrapper */
+      border-radius: 15px;
+      display: block;
+    }
+
+    /* This CSS places the fireworks ON TOP of the image */
+    .fireworks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Allows clicks to go through to elements below if needed */
+      background: transparent;
+      background-image: url('https://i.gifer.com/origin/5e/5ea3c0b6c41c2ba6e0075ff104b68df3.gif'); /* Fireworks GIF */
+      background-repeat: no-repeat;
+      background-size: cover; /* Ensure fireworks cover the area */
+      animation: burst 3s ease-in-out infinite; /* Optional burst effect */
+    }
+
+    @keyframes burst {
+      0% { opacity: 0; }
+      50% { opacity: 0.9; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .link-box {
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      word-break: break-word;
+    }
+    
+    .link-box a {
+        text-decoration: none; /* Remove underline from link */
+    }
+
+    #senderInfo h3 {
+      color: #6d4c41;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    #senderInfo h3 span {
+        color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="gif-wrapper">
+      <img src="https://i.ibb.co/kskCzfXc/Untitled-design-28-1.gif" alt="Eid Mubarak" class="gif" />
+      <div class="fireworks"></div> <!-- This div places fireworks ON TOP of the image -->
+    </div>
+
+    <h1>عید الضحیٰ کا چاند مبارک ہو!</h1>
+    <h2 id="poemArea">
+      چمکتا چاند، خوشی کا پیغام لایا ہے،<br>
+      عید الضحیٰ نے ہر دل کو جگایا ہے،<br>
+      دعا ہے کہ تمہیں یہ خوشیاں ملیں بے شمار،<br>
+      یہ نیک تمنا ہے تمہارے اپنے کی طرف سے ❤️
+    </h2>
+
+    <div id="senderInfo"></div>
+
+    <div id="inputArea">
+      <input type="text" id="nameInput" placeholder="اپنا نام لکھیں..." />
+      <br />
+      <button onclick="generateLink()">Link بنائیں</button> <!-- Changed button text slightly -->
+    </div>
+
+    <div class="link-box" id="generatedLink"></div>
+  </div>
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function generateLink() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) {
+        alert("براہ کرم اپنا نام درج کریں۔");
+        return;
+      }
+
+      // Update the poem text slightly for clarity in WhatsApp message
+      const poem = `🌙 عید کا چاند مبارک ہو! 🌙\n\n${document.getElementById("poemArea").innerText.replace('یہ نیک تمنا ہے تمہارے اپنے کی طرف سے ❤️', `یہ نیک تمنا ہے تمہارے اپنے ${name} کی طرف سے ❤️`)}\n\nیہ پیغام اپنے پیاروں کو بھیجیں:\n`;
+
+      const link = `${window.location.origin}${window.location.pathname}?from=${encodeURIComponent(name)}`;
+      const encodedMsg = encodeURIComponent(`${poem}${link}`);
+      const whatsappURL = `https://wa.me/?text=${encodedMsg}`;
+
+      document.getElementById("generatedLink").innerHTML = `
+        <a href="${whatsappURL}" target="_blank">
+          <button>واٹس ایپ پر بھیجیں</button>
+        </a>
+      `;
+      
+      // Optional: Hide input after generating link
+      // document.getElementById("inputArea").style.display = 'none';
+    }
+
+    // Check for sender name on page load
+    const sender = getQueryParam("from");
+    if (sender) {
+      document.getElementById("senderInfo").innerHTML = `<h3>یہ پیغام آپ کو <span style="color:#2e7d32">${sender}</span> کی طرف سے ملا ہے۔</h3>`;
+      // Update the poem text to include the sender's name
+      document.getElementById("poemArea").innerHTML = `
+        چمکتا چاند، خوشی کا پیغام لایا ہے،<br>
+        عید الضحیٰ نے ہر دل کو جگایا ہے،<br>
+        دعا ہے کہ تمہیں یہ خوشیاں ملیں بے شمار،<br>
+        یہ نیک تمنا ہے تمہارے اپنے ${sender} کی طرف سے ❤️
+      `;
+       // Optional: Hide the input area if a sender is present
+       document.getElementById("inputArea").style.display = 'none';
+
+    } else {
+       // Ensure input area is visible if no sender is present (when someone opens it directly)
+       document.getElementById("inputArea").style.display = 'block';
+    }
+  </script>
+
+  <!-- یہاں آپ کا دیا گیا اسکرپٹ شامل کیا گیا ہے -->
+  <script type="text/javascript">
+	atOptions = {
+		'key' : '5afc92b0c14e26105dc8710601fb3328',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/5afc92b0c14e26105dc8710601fb3328/invoke.js"></script>
+  <!-- یہاں تک اسکرپٹ شامل کیا گیا ہے -->
+
+</body>
+</html>
